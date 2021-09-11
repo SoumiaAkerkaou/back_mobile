@@ -27,16 +27,16 @@ exports.addClient = async(req,res,next) => {
 
        
 
-        const [rows] = await conn.execute('INSERT INTO `client`(`nom`,`prenom`,`sexe`,`date_naissance`,`email`,`numero_tel`,`adresse`,`profession`,`annee_scolaire`,`password`) VALUES(?,?,?,?,?,?,?,?,?,?)',[
+        const [rows] = await conn.execute('INSERT INTO `client`(`nom`,`prenom`,`sexe`,`date_naissance`,`email`,`numero_tele`,`adresse`,`profession`,`niveauScolaire`,`password`) VALUES(?,?,?,?,?,?,?,?,?,?)',[
             req.body.nom,
             req.body.prenom,
             req.body.sexe,
             req.body.date_naissance,
             req.body.email,
-            req.body.numero_tel,
+            req.body.numero_tele,
             req.body.adresse,
             req.body.profession,
-            req.body.annee_scolaire,
+            req.body.niveauScolaire,
             req.body.password
            
         ]);

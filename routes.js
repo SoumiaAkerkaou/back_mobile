@@ -3,6 +3,7 @@ const router = require('express').Router();
 const {body} = require('express-validator');
 const {register} = require('./controllers/register');
 const {login} = require('./controllers/Login');
+
 //client
 const {addClient} = require('./gestion_client/AjouterClient');
 const {getClient} = require('./gestion_client/getClient');
@@ -10,6 +11,7 @@ const {updateClient} = require('./gestion_client/ModifierClient');
 const {DeleteClient} = require('./gestion_client/SupprimerClient');
 const {getAllClient} = require('./gestion_client/getAllClient');
 const {addGclient} = require('./gestion_client/AjouterGoogleClient');
+const {TokenGoogle} = require('./gestion_client/TokenGoogle');
 //specialiste
 const {addSpec} = require('./gestion_specialiste/AjouterSpec');
 const {updateSpec} = require('./gestion_specialiste/ModifierSpec');
@@ -24,6 +26,7 @@ router.post('/register', [
 router.post('/login',[
    
 ],login);
+
 //gestion client
 router.post('/addClient', [
    
@@ -32,6 +35,9 @@ router.post('/addClient', [
 router.post('/addGclient', [
    
 ], addGclient);
+router.post('/TokenGoogle', [
+   
+], TokenGoogle);
 
 router.put('/updateClient/(:id)', [
   

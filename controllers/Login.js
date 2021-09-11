@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const {validationResult} = require('express-validator');
 const conn = require('../dbconnection').promise();
-
+const jwt_decode = require('jwt-decode');
+require('dotenv').config();
 
 exports.login = async (req,res,next) =>{
     const errors = validationResult(req);
@@ -22,7 +23,7 @@ exports.login = async (req,res,next) =>{
                 message: " vous etes admin",
             });*/
             // res.send("vous etes admin");
-        const adpass = await bcrypt.compare(req.body.password, admin[0].password);
+       // const adpass = await bcrypt.compare(req.body.password, admin[0].password);
          if(req.body.password != admin[0].password){
             
             return res.status(422).json({
@@ -32,13 +33,18 @@ exports.login = async (req,res,next) =>{
         /* return res.status(422).json({
                [ admin[0].password],
             });*/
-       /* const theToken = jwt.sign({id:admin[0].id},'the-super-strong-secrect',{ expiresIn: '1h' });
+          // const me='soumia'
+          ad = JSON.parse(JSON.stringify(admin[0]));
+
+        const theToken = jwt.sign(ad,process.env.ACCESS_TOKEN_SECRET);
+        //console.log(ad);
 
         return res.json({
-            token:theToken
-        });*/
+            token:theToken,
+            info:admin[0]
+        });
 
-            res.send(admin[0]);
+            //res.send(admin[0]);
    }
      else{  
        
@@ -61,12 +67,16 @@ exports.login = async (req,res,next) =>{
                 message: "mot de passe incorrect",
             });
         }
-       /* const theToken = jwt.sign({id:spe[0].id},'the-super-strong-secrect',{ expiresIn: '1h' });
+       s = JSON.parse(JSON.stringify(spe[0]));
+
+        const theToken = jwt.sign(s,process.env.ACCESS_TOKEN_SECRET);
+        console.log(s);
 
         return res.json({
-            token:theToken
-        });*/
-        res.send(spe[0]);
+            token:theToken,
+            info:spe[0]
+        });
+        //res.send(spe[0]);
         }
         else{  
              /// ///
@@ -86,12 +96,18 @@ exports.login = async (req,res,next) =>{
                 return res.status(422).json({
                             message: "mot de passe incorrect", });
                  }
-                /* const theToken = jwt.sign({id:cl[0].id},'the-super-strong-secrect',{ expiresIn: '1h' });
+                 c = JSON.parse(JSON.stringify(cl[0]));
+                 console.log(process.env.ACCESS_TOKEN_SECRET);
+
+                    const theToken = jwt.sign(c,process.env.ACCESS_TOKEN_SECRET);
+                    decoded = jwt_decode(theToken,process.env.ACCESS_TOKEN_SECRET);
+                    console.log(decoded);
 
                  return res.json({
-                      token:theToken
-                          });*/
-                          res.send(cl[0]);
+                      token:theToken,
+                      info:cl[0]
+                          });
+                         // res.send(cl[0]);
              }
              else{
                 res.status(404).send("l'email ou le mot de pass est incorrect");

@@ -27,7 +27,7 @@ exports.addSpec = async(req,res,next) => {
 
        
 
-        const [rows] = await conn.execute('INSERT INTO `specialiste`(`nom`,`prenom`,`sexe`,`date_naissance`,`email`,`numero_tele`,`adresse`,`specialite`,`password`,`diplome`,`cv`) VALUES(?,?,?,?,?,?,?,?,?,?,?)',[
+        const [rows] = await conn.execute('INSERT INTO `specialiste`(`nom`,`prenom`,`sexe`,`date_naissance`,`email`,`numero_tele`,`adresse`,`specialite`,`password`,`isConfirmed`,`diplome`,`cv`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',[
             req.body.nom,
             req.body.prenom,
             req.body.sexe,
@@ -37,6 +37,7 @@ exports.addSpec = async(req,res,next) => {
             req.body.adresse,
             req.body.specialite,
             req.body.password,
+            req.body.isConfirmed,
             req.body.diplome,
             req.body.cv
            // hashPass

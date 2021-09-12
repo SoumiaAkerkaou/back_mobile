@@ -14,7 +14,7 @@ exports.updateSpec = async(req,res,next) => {
 
         const i = req.params.id;
 
-             const [rows] = await conn.execute('UPDATE `specialiste`  SET  `nom`=?,`prenom`=?,`sexe`=?,`date_naissance`=?,`email`=?,`numero_tel`=?,`adresse`=?,`specialite`=?,`password`=? where  id = '+i  ,
+             const [rows] = await conn.execute('UPDATE `specialiste`  SET  `nom`=?,`prenom`=?,`sexe`=?,`date_naissance`=?,`email`=?,`numero_tele`=?,`adresse`=?,`specialite`=?,`password`=? where  id = '+i  ,
         
         [
             req.body.nom,
@@ -22,7 +22,7 @@ exports.updateSpec = async(req,res,next) => {
             req.body.sexe,
             req.body.date_naissance,
             req.body.email,
-            req.body.numero_tel,
+            req.body.numero_tele,
             req.body.adresse,
             req.body.specialite,
             req.body.password

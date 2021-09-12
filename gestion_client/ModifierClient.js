@@ -14,7 +14,7 @@ exports.updateClient = async(req,res,next) => {
 
         const i = req.params.id;
 
-             const [rows] = await conn.execute('UPDATE `client`  SET  `nom`=?,`prenom`=?,`sexe`=?,`date_naissance`=?,`email`=?,`numero_tel`=?,`adresse`=?,`profession`=?,`password`=? where  id = '+i  ,
+             const [rows] = await conn.execute('UPDATE `client`  SET  `nom`=?,`prenom`=?,`sexe`=?,`date_naissance`=?,`email`=?,`numero_tele`=?,`adresse`=?,`profession`=?,`password`=? where  id = '+i  ,
         
         [
            
@@ -23,7 +23,7 @@ exports.updateClient = async(req,res,next) => {
             req.body.sexe,
             req.body.date_naissance,
             req.body.email,
-            req.body.numero_tel,
+            req.body.numero_tele,
             req.body.adresse,
             req.body.profession,
             req.body.password

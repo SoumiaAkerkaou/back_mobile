@@ -27,15 +27,16 @@ exports.register = async(req,res,next) => {
 
        
 
-        const [rows] = await conn.execute('INSERT INTO `client`(`nom`,`prenom`,`sexe`,`date_naissance`,`email`,`numero_tel`,`profession`,`password`) VALUES(?,?,?,?,?,?,?,?)',[
+        const [rows] = await conn.execute('INSERT INTO `client`(`nom`,`prenom`,`sexe`,`date_naissance`,`email`,`numero_tele`,`profession`,`password`,`isConfirmed`) VALUES(?,?,?,?,?,?,?,?,?)',[
             req.body.nom,
             req.body.prenom,
             req.body.sexe,
             req.body.date_naissance,
             req.body.email,
-            req.body.numero_tel,
+            req.body.numero_tele,
             req.body.profession,
-            req.body.password
+            req.body.password,
+            req.body.isConfirmed
            // hashPass
         ]);
 

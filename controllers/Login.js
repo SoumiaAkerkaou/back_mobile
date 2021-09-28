@@ -35,6 +35,7 @@ exports.login = async (req,res,next) =>{
             });*/
           // const me='soumia'
           ad = JSON.parse(JSON.stringify(admin[0]));
+          
 
         const theToken = jwt.sign(ad,process.env.ACCESS_TOKEN_SECRET);
         //console.log(ad);
@@ -98,10 +99,11 @@ exports.login = async (req,res,next) =>{
                  }
                  c = JSON.parse(JSON.stringify(cl[0]));
                  console.log(process.env.ACCESS_TOKEN_SECRET);
+                 console.log(c);
 
                     const theToken = jwt.sign(c,process.env.ACCESS_TOKEN_SECRET);
-                    decoded = jwt_decode(theToken,process.env.ACCESS_TOKEN_SECRET);
-                    console.log(decoded);
+                   // decoded = jwt_decode(theToken,process.env.ACCESS_TOKEN_SECRET);
+                    //console.log(decoded);
 
                  return res.json({
                       token:theToken,

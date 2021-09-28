@@ -18,9 +18,12 @@ const {updateSpec} = require('./gestion_specialiste/ModifierSpec');
 const {DeleteSpec} = require('./gestion_specialiste/SupprimerSpec');
 const {getAllSpec} = require('./gestion_specialiste/getAllSpec');
 
+
 router.post('/register', [
    
 ], register);
+
+
 
 
 router.post('/login',[

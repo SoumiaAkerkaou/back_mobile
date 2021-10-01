@@ -14,7 +14,7 @@ exports.updateClient = async(req,res,next) => {
 
         const i = req.params.id;
 
-             const [rows] = await conn.execute('UPDATE `client`  SET  `nom`=?,`prenom`=?,`sexe`=?,`date_naissance`=?,`email`=?,`numero_tele`=?,`adresse`=?,`profession`=?,`niveauScolaire=?`,`password`=? where  id = '+i  ,
+             const [rows] = await conn.execute('UPDATE `client`  SET  `nom`=?,`prenom`=?,`sexe`=?,`date_naissance`=?,`email`=?,`numero_tele`=?,`adresse`=?,`profession`=?,`niveauScolaire`=?,`password`=? where  id = '+i  ,
         
         [
            

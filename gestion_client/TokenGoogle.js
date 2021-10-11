@@ -9,7 +9,7 @@ exports.TokenGoogle = async (req,res,next) => {
    
        try{ 
             const [row] = await conn.execute(
-            "SELECT * FROM `client` WHERE  `email`=? ",
+            "SELECT * FROM `User` WHERE  `email`=? ",
             [  /* req.body.nom,
                  req.body.prenom,*/
                  req.body.email

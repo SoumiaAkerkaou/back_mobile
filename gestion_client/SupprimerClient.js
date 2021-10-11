@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const conn = require('../dbconnection');
 
 exports.DeleteClient = (req, res) => {
-conn.query( "DELETE FROM client WHERE id = ?",
+conn.query( "DELETE FROM User WHERE id = ?",
     req.params.id,
     (err, result) => {
       if (err) {

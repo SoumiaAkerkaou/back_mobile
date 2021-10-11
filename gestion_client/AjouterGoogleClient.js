@@ -13,7 +13,7 @@ exports.addGclient = async(req,res,next) => {
      try{
         //verifier l'existance d'un utilisateur
          const [row] = await conn.execute(
-            "SELECT * FROM `client` WHERE  `nom` = ? AND `prenom`=? AND `email`=? ",
+            "SELECT * FROM `User` WHERE  `nom` = ? AND `prenom`=? AND `email`=? ",
             [   req.body.nom,
                  req.body.prenom,
                  req.body.email
@@ -29,7 +29,7 @@ exports.addGclient = async(req,res,next) => {
 
        
 
-        const [rows] = await conn.execute('INSERT INTO `client`(`nom`,`prenom`,`sexe`,`date_naissance`,`email`,`numero_tele`,`adresse`,`profession`,`niveauScolaire`,`idGoogle`,`isConfirmed`) VALUES(?,?,?,?,?,?,?,?,?,?,?)',[
+        const [rows] = await conn.execute('INSERT INTO `User`(`nom`,`prenom`,`sexe`,`date_naissance`,`email`,`numero_tele`,`adresse`,`profession`,`niveauScolaire`,`idGoogle`,`isConfirmed`) VALUES(?,?,?,?,?,?,?,?,?,?,?)',[
             req.body.nom,
             req.body.prenom,
            req.body.sexe,

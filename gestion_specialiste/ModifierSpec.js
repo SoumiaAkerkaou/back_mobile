@@ -13,8 +13,41 @@ exports.updateSpec = async(req,res,next) => {
     try{
 
         const i = req.params.id;
+        
+        if(req.body.password === "")
+        {
+               const [rows] = await conn.execute('UPDATE `User`  SET  `nom`=?,`prenom`=?,`sexe`=?,`date_naissance`=?,`email`=?,`numero_tele`=?,`adresse`=?,`specialite`=? where  id = '+i  ,
+        
+        [
+            req.body.nom,
+            req.body.prenom,
+            req.body.sexe,
+            req.body.date_naissance,
+            req.body.email,
+            req.body.numero_tele,
+            req.body.adresse,
+            req.body.specialite
+           
+        ]);
+        console.log("modif sans password");
 
-             const [rows] = await conn.execute('UPDATE `specialiste`  SET  `nom`=?,`prenom`=?,`sexe`=?,`date_naissance`=?,`email`=?,`numero_tele`=?,`adresse`=?,`specialite`=?,`password`=? where  id = '+i  ,
+        if (rows.affectedRows === 1) {
+            return res.status(201).json({
+                message: "utilisateur modifier avec succes",
+            });
+        }
+
+         else{
+              return res.status(201).json({
+                message: "utilisateur non exist",
+            });}
+
+        }
+        else{
+            const salt = bcrypt.genSaltSync(10);
+           const hashpass = bcrypt.hashSync(req.body.password, salt)
+
+               const [rows] = await conn.execute('UPDATE `User`  SET  `nom`=?,`prenom`=?,`sexe`=?,`date_naissance`=?,`email`=?,`numero_tele`=?,`adresse`=?,`specialite`=?,`password`=? where  id = '+i  ,
         
         [
             req.body.nom,
@@ -25,20 +58,24 @@ exports.updateSpec = async(req,res,next) => {
             req.body.numero_tele,
             req.body.adresse,
             req.body.specialite,
-            req.body.password
+            hashpass
            
         ]);
+        console.log("modif avec password");
 
         if (rows.affectedRows === 1) {
             return res.status(201).json({
-                message: "specialiste modifier avec succes",
+                message: "utilisateur modifier avec succes",
             });
         }
 
          else{
               return res.status(201).json({
-                message: "client non exist",
+                message: "utilisateur non exist",
             });}
+        }
+
+          
          
         
     }catch(err){

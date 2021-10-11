@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const {validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
+const saltRounds = 10;
 const conn = require('../dbconnection').promise();
 
 exports.addClient = async(req,res,next) => {
@@ -13,21 +14,25 @@ exports.addClient = async(req,res,next) => {
      try{
         //verifier l'existance d'un utilisateur
          const [row] = await conn.execute(
-            "SELECT * FROM `client` WHERE `nom`=? AND `prenom`=?",
-            [req.body.nom,
-             req.body.prenom
+            "SELECT * FROM `User` WHERE `email`=?",
+            [req.body.email,
             ]
           );
 
         if (row.length > 0) {
             return res.send(
-                 "ce client existe deja"
+                 "cet utilisateur existe deja"
             );
         }
 
+        
+      console.log(req.body.password);
+       const salt = bcrypt.genSaltSync(10);
+       const hashpass = bcrypt.hashSync(req.body.password, salt)
+
        
 
-        const [rows] = await conn.execute('INSERT INTO `client`(`nom`,`prenom`,`sexe`,`date_naissance`,`email`,`numero_tele`,`adresse`,`profession`,`niveauScolaire`,`password`,`isConfirmed`) VALUES(?,?,?,?,?,?,?,?,?,?,?)',[
+        const [rows] = await conn.execute('INSERT INTO `User`(`nom`,`prenom`,`sexe`,`date_naissance`,`email`,`numero_tele`,`adresse`,`profession`,`picture`,`niveauScolaire`,`password`,`isConfirmed`,`role`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,"client")',[
             req.body.nom,
             req.body.prenom,
             req.body.sexe,
@@ -38,14 +43,15 @@ exports.addClient = async(req,res,next) => {
             req.body.profession,
             req.body.picture,
             req.body.niveauScolaire,
-            req.body.password,
+            //req.body.password,
+            hashpass,
             req.body.isConfirmed
            
         ]);
 
         if (rows.affectedRows === 1) {
             return  res.send(
-                 "client insere avec succes"
+                 "utilisateur insere avec succes"
             );
         }
         

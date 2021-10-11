@@ -13,21 +13,20 @@ exports.addSpec = async(req,res,next) => {
      try{
         //verifier l'existance d'un utilisateur
          const [row] = await conn.execute(
-            "SELECT * FROM `specialiste` WHERE `nom`=? AND `prenom`=?",
-            [req.body.nom,
-             req.body.prenom
+            "SELECT * FROM `User` WHERE `email`=?",
+            [req.body.email,
             ]
           );
 
         if (row.length > 0) {
             return res.status(201).json({
-                message: "ce specialiste existe deja",
+                message: "cet utilisateur existe deja",
             });
         }
 
-       
+        const hashpass=await bcrypt.hash(req.body.password, 5);
 
-        const [rows] = await conn.execute('INSERT INTO `specialiste`(`nom`,`prenom`,`sexe`,`date_naissance`,`email`,`numero_tele`,`adresse`,`specialite`,`picture`,`password`,`isConfirmed`,`deplome`,`cv`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',[
+        const [rows] = await conn.execute('INSERT INTO `User`(`nom`,`prenom`,`sexe`,`date_naissance`,`email`,`numero_tele`,`adresse`,`specialite`,`picture`,`password`,`isConfirmed`,`diplome`,`cv`,`role`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,"specialist")',[
             req.body.nom,
             req.body.prenom,
             req.body.sexe,
@@ -37,7 +36,7 @@ exports.addSpec = async(req,res,next) => {
             req.body.adresse,
             req.body.specialite,
             req.body.picture,
-            req.body.password,
+            hashpass,
             req.body.isConfirmed,
             req.body.deplome,
             req.body.cv
@@ -46,7 +45,7 @@ exports.addSpec = async(req,res,next) => {
 
         if (rows.affectedRows === 1) {
             return res.status(201).json({
-                message: "specialiste insere avec succes",
+                message: "utilisateur insere avec succes",
             });
         }
         

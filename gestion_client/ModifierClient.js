@@ -13,15 +13,14 @@ exports.updateClient = async(req,res,next) => {
     try{
 
         const i = req.params.id;
-<<<<<<< HEAD
+
         
         if(req.body.password === "")
         {
                const [rows] = await conn.execute('UPDATE `User`  SET  `nom`=?,`prenom`=?,`sexe`=?,`date_naissance`=?,`email`=?,`numero_tele`=?,`adresse`=?,`profession`=?, `niveauScolaire`=? where  id = '+i  ,
-=======
 
-             const [rows] = await conn.execute('UPDATE `client`  SET  `nom`=?,`prenom`=?,`sexe`=?,`date_naissance`=?,`email`=?,`numero_tele`=?,`adresse`=?,`profession`=?,`niveauScolaire`=?,`password`=? where  id = '+i  ,
->>>>>>> cf0cb32dd54a2970f7890707ac6a34ca8532906c
+
+             
         
         [
             req.body.nom,
